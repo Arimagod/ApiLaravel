@@ -10,6 +10,7 @@ class Habit_type extends Model
 {
     use HasFactory;
     protected $fillable = [
+        "id",
         "type",
     ];
 }

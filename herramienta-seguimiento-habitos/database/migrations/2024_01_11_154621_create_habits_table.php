@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('description');
             $table->string('frecuency');
             $table->integer('user_id');
+            $table->integer('habit_type_id');
+
 
 
 

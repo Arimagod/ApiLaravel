@@ -45,16 +45,12 @@ class tracking_logController extends Controller
             "registration_date" => "required", 
             "habit_state" => "required",  
             "user_id" => "required|numeric",      
-               
-                
-        
         ]);
 
         $tracking = Tracking_log::create([
             "registration_date" => $data["registration_date"], 
             "habit_state" => $data["habit_state"],   
             "user_id" => $data["user_id"],       
-          
         ]);
 
         if($tracking){
@@ -69,4 +65,46 @@ class tracking_logController extends Controller
         }
 
     }
+    public function update(Request $request){
+        $data = $request->validate([
+            "id" => "required|numeric", 
+            "registration_date" => "required",
+            "habit_state" => "required",
+            "user_id" => "required|numeric", 
+ 
+
+        ]);
+        $tracking = Tracking_log::where('id', '=', $data["id"])->first();
+
+
+        if($tracking){
+
+            $old = clone $tracking;
+
+
+            $tracking->registration_date = $data["registration_date"];
+            $tracking->habit_state = $data["habit_state"];
+            $tracking->user_id = $data["user_id"];
+
+            if($tracking->save()){
+                return response()->json([
+                    "message" => "Correctamente modificado",
+                    "old" => $old,
+                    "new" => $tracking
+                ]);
+            }
+            else{
+                return response()->json([
+                    "message" => "Error al modificar",
+                    
+                ]);
+            }
+        }
+        else{
+            return response()->json([
+                "message" => "Elemento no encontrado",
+                
+            ]);
+
+    } }
 }

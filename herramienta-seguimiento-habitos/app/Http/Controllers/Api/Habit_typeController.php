@@ -58,5 +58,48 @@ class Habit_typeController extends Controller
         }
 
     }
+    public function update(Request $request){
+        $data = $request->validate([
+            "id" => "required|numeric", 
+            "type" => "required",            
+        ]);
+        $habit_type = Habit_type::where('id', '=', $data["id"])->first();
+
+
+        if($habit_type){
+
+            $old = clone $habit_type ;
+
+
+            $habit_type->type = $data["type"];
+
+            if($habit_type->save()){
+                return response()->json([
+                    "message" => "Correctamente modificado",
+                    "old" => $old,
+                    "new" => $habit_type
+                ]);
+            }
+            else{
+                return response()->json([
+                    "message" => "Error al modificar",
+                    
+                ]);
+            }
+        }
+        else{
+            return response()->json([
+                "message" => "Elemento no encontrado",
+                
+            ]);
+
+        }
+
+
+
+
+
+
+    }
 
 }

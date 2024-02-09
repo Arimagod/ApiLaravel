@@ -69,6 +69,57 @@ class HabitController extends Controller
                 "message" => "Intenta mas tarde"
             ]);
         }
+        
 
     }
+    public function update(Request $request){
+        $data = $request->validate([
+
+            "id" => "required|numeric", 
+            "name" => "required",  
+            "description" => "required",  
+            "frecuency" => "required",
+            "user_id" => "required|numeric",          
+
+        ]);
+        $habit = Habit::where('id', '=', $data["id"])->first();
+
+
+        if($habit){
+
+            $old = clone $habit;
+
+
+            $habit->name = $data["name"];
+            $habit->description = $data["description"];
+            $habit->frecuency = $data["frecuency"];
+            $habit->user_id = $data["user_id"];
+
+
+
+
+            if($habit->save()){
+                return response()->json([
+                    "message" => "Correctamente modificado",
+                    "old" => $old,
+                    "new" => $habit
+                ]);
+            }
+            else{
+                return response()->json([
+                    "message" => "Error al modificar",
+                    
+                ]);
+            }
+        }
+        else{
+            return response()->json([
+                "message" => "Elemento no encontrado",
+                
+            ]);
+
+      
+        }  
+    }
+    
 }

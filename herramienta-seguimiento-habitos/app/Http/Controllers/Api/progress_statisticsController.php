@@ -61,4 +61,46 @@ class progress_statisticsController extends Controller
         }
 
     }
+    public function update(Request $request){
+        $data = $request->validate([
+            "id" => "required|numeric", 
+            "date_hour" => "required",
+            "user_id" => "required|numeric", 
+
+            //"user_id" => "required|numeric",           
+        ]);
+        $progress_Statistic = progress_statistics::where('id', '=', $data["id"])->first();
+
+
+        if($progress_Statistic){
+
+            $old = $progress_Statistic ->replicate();
+
+
+            $progress_Statistic->date_hour = $data["date_hour"];
+            $progress_Statistic->user_id = $data["user_id"];
+
+            if($progress_Statistic->save()){
+                return response()->json([
+                    "message" => "Correctamente modificado",
+                    "old" => $old,
+                    "new" => $progress_Statistic
+                ]);
+            }
+            else{
+                return response()->json([
+                    "message" => "Error al modificar",
+                    
+                ]);
+            }
+        }
+        else{
+            return response()->json([
+                "message" => "Elemento no encontrado",
+                
+            ]);
+
+    } }
+
+    
 }
