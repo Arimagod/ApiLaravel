@@ -4,8 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Habit_typeController;
 use App\Http\Controllers\Api\HabitController;
-use App\Http\Controllers\Api\progress_statisticsController;
-use App\Http\Controllers\Api\Tracking_logController;
+use App\Http\Controllers\Api\StatusController;
+use App\Http\Controllers\Api\FrequencyController;
 use App\Http\Controllers\Api\UsersController;
 
 
@@ -28,16 +28,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/habit_types',[Habit_typeController::class, 'list']);
 Route::get('/habit_types/{id}', [Habit_typeController::class, 'item']);
+Route::post('/habit_types/update',[Habit_typeController::class, 'update']);
+Route::post('/habit_types/create',[Habit_typeController::class, 'create']);
+
 
 Route::get('/habits',[HabitController::class, 'list']);
 Route::get('/habits/{id}', [Habit_typeController::class, 'item']);
+Route::post('/habits/create',[HabitController::class, 'create']);
+Route::post('/habits/update',[HabitController::class, 'update']);
 
 
-Route::get('/progress_statistics',[progress_statisticsController::class, 'list']);
-Route::get('/progress_statistics/{id}', [progress_statisticsController::class, 'item']);
+Route::get('/statuses',[StatusController::class, 'list']);
+Route::get('/statuses/{id}', [StatusController::class, 'item']);
+Route::post('/statuses/create',[StatusController::class, 'create']);
+Route::post('/statuses/update',[StatusController::class, 'update']);
 
-Route::get('/tracking_logs',[tracking_logController::class, 'list']);
-Route::get('/tracking_logs/{id}', [tracking_logController::class, 'item']);
+Route::get('/frequencies',[FrequencyController::class, 'list']);
+Route::get('/frequencies/{id}', [FrequencyController::class, 'item']);
+Route::post('/frequencies/create',[FrequencyController::class, 'create']);
+Route::post('/frequencies/update',[FrequencyController::class, 'update']);
 
 Route::get('/users',[UsersController::class, 'list']);
 Route::get('/users/{id}', [UsersController::class, 'item']);
@@ -45,15 +54,7 @@ Route::post('/users/create',[UsersController::class, 'create']);
 Route::post('/users/update',[UsersController::class, 'update']);
 
 
-Route::post('/tracking_logs/create',[tracking_logController::class, 'create']);
-Route::post('/progress_statistics/create',[progress_statisticsController::class, 'create']);
-Route::post('/habits/create',[HabitController::class, 'create']);
-Route::post('/habit_types/create',[Habit_typeController::class, 'create']);
 
-Route::post('/habit_types/update',[Habit_typeController::class, 'update']);
-Route::post('/habits/update',[HabitController::class, 'update']);
-Route::post('/progress_statistics/update',[progress_statisticsController::class, 'update']);
-Route::post('/tracking_logs/update',[tracking_logController::class, 'update']);
 
 
 

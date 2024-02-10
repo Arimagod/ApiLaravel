@@ -13,8 +13,10 @@ class Habit extends Model
     protected $fillable = [
         "name",
         "description",
-        "frecuency",
         "user_id",
-        
+        "habit_type_id", 
+        "frequency_id",
+        "status_id",                          
+                         
     ];
 }

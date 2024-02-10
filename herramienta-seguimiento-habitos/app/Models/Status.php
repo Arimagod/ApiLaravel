@@ -3,15 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use app\Models\progress_statistics;
+use app\Models\Status;
 use Illuminate\Database\Eloquent\Model;
 
-class progress_statistics extends Model
+class Status extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "date_hour",
-        "user_id",
+        "status",
         
     ];
 }

@@ -16,12 +16,14 @@ class HabitController extends Controller
                 "id" => $Habit->id,
                 "name" => $Habit->name,
                 "description" => $Habit->description,
-                "frecuency" => $Habit->frecuency,
                 "user_id" => $Habit->user_id,
+                "frequency_id" => $Habit->frequency_id,
+                "status_id" => $Habit->status_id,
+                "habit_type_id" => $Habit->habit_type_id,
                 "created_at" => $Habit->Created_at,
                 "updated_at" => $Habit->Updated_at,
             ];
-            
+
             array_push($list, $object);
         }
         return response()->json($list);
@@ -33,8 +35,10 @@ class HabitController extends Controller
                 "id" => $habits->id,
                 "name" => $habits->name,
                 "description" => $habits->description,
-                "frecuency" => $habits->frecuency,
+                "frequency_id" => $habits->frequency_id,
+                "status_id" => $habits->status_id,
                 "user_id" => $habits->user_id,
+                "habit_type_id" => $habits->habit_type_id,
                 "created_at" => $habits->Created_at,
                 "updated_at" => $habits->Updated_at,
                 ];
@@ -46,16 +50,21 @@ class HabitController extends Controller
         $data = $request->validate([
             "name" => "required",  
             "description" => "required",  
-            "frecuency" => "required",
-            "user_id" => "required|numeric",          
+            "user_id" => "required|numeric",    
+            "habit_type_id" => "required|numeric",   
+            "frequency_id" => "required|numeric",
+            "status_id" => "required|numeric",       
+      
     
         ]);
 
         $habit = Habit::create([
             "name" => $data["name"],
             "description" => $data["description"],
-            "frecuency" => $data["frecuency"],
-            "user_id" => $data["user_id"],          
+            "user_id" => $data["user_id"],
+            "habit_type_id" => $data["habit_type_id"],
+            "frequency_id" => $data["frequency_id"],
+            "status_id" => $data["status_id"],          
 
         ]);
 
@@ -78,8 +87,11 @@ class HabitController extends Controller
             "id" => "required|numeric", 
             "name" => "required",  
             "description" => "required",  
-            "frecuency" => "required",
-            "user_id" => "required|numeric",          
+            "user_id" => "required|numeric",  
+            "habit_type_id" => "required|numeric",
+            "frequency_id" => "required|numeric",
+            "status_id" => "required|numeric",
+
 
         ]);
         $habit = Habit::where('id', '=', $data["id"])->first();
@@ -92,8 +104,10 @@ class HabitController extends Controller
 
             $habit->name = $data["name"];
             $habit->description = $data["description"];
-            $habit->frecuency = $data["frecuency"];
             $habit->user_id = $data["user_id"];
+            $habit->habit_type_id = $data["habit_type_id"];
+            $habit->frequency_id = $data["frequency_id"];
+            $habit->status_id = $data["status_id"];
 
 
 

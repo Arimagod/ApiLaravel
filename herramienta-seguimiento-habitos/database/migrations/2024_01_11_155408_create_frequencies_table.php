@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('progress_statistics', function (Blueprint $table) {
+        Schema::create('frequencies', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->string('date_hour');
-
+            $table->string('frequency');
 
 
             $table->timestamps();
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('progress_statistics');
+        Schema::dropIfExists('frequencies');
     }
 };

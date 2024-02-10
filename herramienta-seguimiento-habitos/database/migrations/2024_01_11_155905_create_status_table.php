@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tracking_logs', function (Blueprint $table) {
+        Schema::create('statuses', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->string('registration_date');
-            $table->string('habit_state');
+            $table->string('status');
+
 
 
             $table->timestamps();
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tracking_log');
+        Schema::dropIfExists('statuses');
     }
 };
