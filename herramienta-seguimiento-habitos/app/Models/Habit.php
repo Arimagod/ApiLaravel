@@ -19,4 +19,17 @@ class Habit extends Model
         "status_id",                          
                          
     ];
+    public function habit_type(){
+        return $this->belongsTo(Habit_type::class);
+    }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+    public function frequency(){
+        return $this->belongsTo(Frequency::class);
+    }
+    public function status(){
+        return $this->belongsTo(Status::class);
+    }
+    
 }

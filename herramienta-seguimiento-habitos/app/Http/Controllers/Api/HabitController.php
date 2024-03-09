@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Habit;
+use App\Models\Habit_type;
+use App\Models\User;
+
 
 class HabitController extends Controller
 {
@@ -16,10 +19,10 @@ class HabitController extends Controller
                 "id" => $Habit->id,
                 "name" => $Habit->name,
                 "description" => $Habit->description,
-                "user_id" => $Habit->user_id,
-                "frequency_id" => $Habit->frequency_id,
-                "status_id" => $Habit->status_id,
-                "habit_type_id" => $Habit->habit_type_id,
+                "user" => $Habit->user,
+                "frequency" => $Habit->frequency,
+                "status" => $Habit->status,
+                "habit_type" => $Habit->habit_type,
                 "created_at" => $Habit->Created_at,
                 "updated_at" => $Habit->Updated_at,
             ];
@@ -35,10 +38,10 @@ class HabitController extends Controller
                 "id" => $habits->id,
                 "name" => $habits->name,
                 "description" => $habits->description,
-                "frequency_id" => $habits->frequency_id,
-                "status_id" => $habits->status_id,
-                "user_id" => $habits->user_id,
-                "habit_type_id" => $habits->habit_type_id,
+                "frequency" => $habits->frequency,
+                "status" => $habits->status,
+                "user" => $habits->user,
+                "habit_type" => $habits->habit_type,
                 "created_at" => $habits->Created_at,
                 "updated_at" => $habits->Updated_at,
                 ];
@@ -134,6 +137,55 @@ class HabitController extends Controller
 
       
         }  
+        
+    }
+    public function Elements($types){
+        $elem = Habit_type:: where ('type', 'LIKE', "%{$types}%") -> first(); 
+        $habits = Habit::where('habit_type_id', '=', $elem -> id)->get();
+
+    
+        $habitsArray = [];
+        foreach ($habits as $habit) {
+            $habitsArray[] = [
+                "id" => $habit->id,
+                "name" => $habit->name,
+                "description" => $habit->description,
+                "frequency_id" => $habit->frequency_id,
+                "status_id" => $habit->status_id,
+                "user_id" => $habit->user_id,
+                "habit_type_id" => $habit->habit_type_id,
+                "created_at" => $habit->created_at,
+                "updated_at" => $habit->updated_at,
+            ];
+        }
+    
+        return response()->json($habitsArray);
     }
     
+    public function Elements2($types){
+        $elem = User:: where ('type', 'LIKE', "%{$types}%") -> first(); 
+        $habits = Habit::where('user_id', '=', $elem -> id)->get();
+
+    
+        $habitsArray = [];
+        foreach ($habits as $habit) {
+            $habitsArray[] = [
+                "id" => $habit->id,
+                "name" => $habit->name,
+                "description" => $habit->description,
+                "frequency_id" => $habit->frequency_id,
+                "status_id" => $habit->status_id,
+                "user_id" => $habit->user_id,
+                "habit_type_id" => $habit->habit_type_id,
+                "created_at" => $habit->created_at,
+                "updated_at" => $habit->updated_at,
+            ];
+        }
+    
+        return response()->json($habitsArray);
+    }
+    
+
+    
+     
 }
