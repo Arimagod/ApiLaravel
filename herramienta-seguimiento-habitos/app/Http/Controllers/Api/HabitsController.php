@@ -9,7 +9,7 @@ use App\Models\Habit_type;
 use App\Models\User;
 
 
-class HabitController extends Controller
+class HabitsController extends Controller
 {
     public function list(){
         $habits = Habit::all();
@@ -17,7 +17,6 @@ class HabitController extends Controller
         foreach($habits as $Habit){
             $object = [
                 "id" => $Habit->id,
-                "name" => $Habit->name,
                 "description" => $Habit->description,
                 "user" => $Habit->user,
                 "frequency" => $Habit->frequency,
@@ -36,7 +35,6 @@ class HabitController extends Controller
             $habits = Habit::where('id', '=', $id)->first();
                 $object = [
                 "id" => $habits->id,
-                "name" => $habits->name,
                 "description" => $habits->description,
                 "frequency" => $habits->frequency,
                 "status" => $habits->status,
@@ -51,7 +49,6 @@ class HabitController extends Controller
 
     public function create (Request $request){
         $data = $request->validate([
-            "name" => "required",  
             "description" => "required",  
             "user_id" => "required|numeric",    
             "habit_type_id" => "required|numeric",   
@@ -62,7 +59,6 @@ class HabitController extends Controller
         ]);
 
         $habit = Habit::create([
-            "name" => $data["name"],
             "description" => $data["description"],
             "user_id" => $data["user_id"],
             "habit_type_id" => $data["habit_type_id"],
@@ -88,7 +84,6 @@ class HabitController extends Controller
         $data = $request->validate([
 
             "id" => "required|numeric", 
-            "name" => "required",  
             "description" => "required",  
             "user_id" => "required|numeric",  
             "habit_type_id" => "required|numeric",
@@ -105,7 +100,6 @@ class HabitController extends Controller
             $old = clone $habit;
 
 
-            $habit->name = $data["name"];
             $habit->description = $data["description"];
             $habit->user_id = $data["user_id"];
             $habit->habit_type_id = $data["habit_type_id"];
@@ -148,7 +142,6 @@ class HabitController extends Controller
         foreach ($habits as $habit) {
             $habitsArray[] = [
                 "id" => $habit->id,
-                "name" => $habit->name,
                 "description" => $habit->description,
                 "frequency_id" => $habit->frequency_id,
                 "status_id" => $habit->status_id,
@@ -171,7 +164,6 @@ class HabitController extends Controller
         foreach ($habits as $habit) {
             $habitsArray[] = [
                 "id" => $habit->id,
-                "name" => $habit->name,
                 "description" => $habit->description,
                 "frequency_id" => $habit->frequency_id,
                 "status_id" => $habit->status_id,

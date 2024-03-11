@@ -4,20 +4,19 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Habit_type;
+use App\Models\Frequency;
 
-
-class Habit_typeController extends Controller
+class FrequenciesController extends Controller
 {
     public function list(){
-        $habit_types = Habit_type::all();
+        $frequency = Frequency::all();
         $list = [];
-        foreach($habit_types as $habit_type){
+        foreach($frequency as $frecuencys){
             $object = [
-                "id" => $habit_type->id,
-                "type" => $habit_type->type,
-                "created_at" => $habit_type->Created_at,
-                "updated_at" => $habit_type->Updated_at,
+                "id" => $frecuencys->id,
+                "frequency" => $frecuencys->frequency,  
+                "created_at" => $frecuencys->Created_at,
+                "updated_at" => $frecuencys->Updated_at,
             ];
             
             array_push($list, $object);
@@ -26,12 +25,12 @@ class Habit_typeController extends Controller
     }
 
     public function item($id){
-            $habit_type = Habit_type::where('id', '=', $id)->first();
+            $frequency = Frequency::where('id', '=', $id)->first();
                 $object = [
-                    "id" => $habit_type->id,
-                    "type" => $habit_type->type,
-                    "created_at" => $habit_type->Created_at,
-                    "updated_at" => $habit_type->Updated_at,
+                    "id" => $frequency->id,
+                    "frequency" => $frequency->frequency,  
+                    "created_at" => $frequency->Created_at,
+                    "updated_at" => $frequency->Updated_at,
                 ];
             return response()->json($object);
 
@@ -39,17 +38,19 @@ class Habit_typeController extends Controller
 
     public function create (Request $request){
         $data = $request->validate([
-            "type" => "required",            
+            "frequency" => "required", 
+                 
         ]);
 
-        $habit_type = Habit_type::create([
-            "type" => $data["type"],
+        $frequency = Frequency::create([
+            "frequency" => $data["frequency"], 
+                  
         ]);
 
-        if($habit_type){
+        if($frequency){
             return response()->json([
-                "message" => "Tipo de Habito creado correctamente",
-                "data" => $habit_type
+                "message" => "Progreso de estadistica creado correctamente",
+                "data" => $frequency
             ]);
         }else{
             return response()->json([
@@ -61,23 +62,27 @@ class Habit_typeController extends Controller
     public function update(Request $request){
         $data = $request->validate([
             "id" => "required|numeric", 
-            "type" => "required",            
+            "frequency" => "required",
+            
+ 
+
         ]);
-        $habit_type = Habit_type::where('id', '=', $data["id"])->first();
+        $frequency = Frequency::where('id', '=', $data["id"])->first();
 
 
-        if($habit_type){
+        if($frequency){
 
-            $old = clone $habit_type ;
+            $old = clone $frequency;
 
 
-            $habit_type->type = $data["type"];
+            $frequency->frequency = $data["frequency"];
 
-            if($habit_type->save()){
+
+            if($frequency->save()){
                 return response()->json([
                     "message" => "Correctamente modificado",
                     "old" => $old,
-                    "new" => $habit_type
+                    "new" => $frequency
                 ]);
             }
             else{
@@ -93,13 +98,5 @@ class Habit_typeController extends Controller
                 
             ]);
 
-        }
-
-
-
-
-
-
-    }
-
+    } }
 }

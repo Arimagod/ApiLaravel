@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -49,6 +50,7 @@ class UsersController extends Controller
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
+
         ]);
    
         $user = User::where('id', '=', $data['id'])->first();
@@ -59,6 +61,7 @@ class UsersController extends Controller
             $user -> name = $data['name'];
             $user -> email = $data['email'];
             $user -> password = $data['password'];
+
 
             if($user->save()){
                 return response() ->json([
@@ -83,12 +86,13 @@ class UsersController extends Controller
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
+
         ]);
 
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => $data['password']
+            'password' => Hash::make($data['password']),
         ]);
 
         if($user) {

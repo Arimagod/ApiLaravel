@@ -11,7 +11,6 @@ class Habit extends Model
     use HasFactory;
 
     protected $fillable = [
-        "name",
         "description",
         "user_id",
         "habit_type_id", 

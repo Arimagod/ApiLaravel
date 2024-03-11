@@ -2,10 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\Habit_typeController;
-use App\Http\Controllers\Api\HabitController;
-use App\Http\Controllers\Api\StatusController;
-use App\Http\Controllers\Api\FrequencyController;
+use App\Http\Controllers\Api\Habit_typesController;
+use App\Http\Controllers\Api\HabitsController;
+use App\Http\Controllers\Api\StatusesController;
+use App\Http\Controllers\Api\FrequenciesController;
 use App\Http\Controllers\Api\UsersController;
 use App\Http\Controllers\Api\AuthController;
 
@@ -27,27 +27,27 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/habit_type',[Habit_typeController::class, 'list']);
-Route::get('/habit_type/{id}', [Habit_typeController::class, 'item']);
-Route::post('/habit_type/update',[Habit_typeController::class, 'update']);
-Route::post('/habit_type/create',[Habit_typeController::class, 'create']);
+Route::get('/habit_typs',[Habit_typesController::class, 'list']);
+Route::get('/habit_types/{id}', [Habit_typesController::class, 'item']);
+Route::post('/habit_types/update',[Habit_typesController::class, 'update']);
+Route::post('/habit_types/create',[Habit_typesController::class, 'create']);
 
 
-Route::get('/habit',[HabitController::class, 'list']);
-Route::get('/habit/{id}', [HabitController::class, 'item']);
-Route::post('/habit/create',[HabitController::class, 'create']);
-Route::post('/habit/update',[HabitController::class, 'update']);
+Route::get('/habits',[HabitsController::class, 'list']);
+Route::get('/habits/{id}', [HabitsController::class, 'item']);
+Route::post('/habits/create',[HabitsController::class, 'create']);
+Route::post('/habits/update',[HabitsController::class, 'update']);
 
 
-Route::get('/statuses',[StatusController::class, 'list']);
-Route::get('/statuses/{id}', [StatusController::class, 'item']);
-Route::post('/statuses/create',[StatusController::class, 'create']);
-Route::post('/statuses/update',[StatusController::class, 'update']);
+Route::get('/statuses',[StatusesController::class, 'list']);
+Route::get('/statuses/{id}', [StatusesController::class, 'item']);
+Route::post('/statuses/create',[StatusesController::class, 'create']);
+Route::post('/statuses/update',[StatusesController::class, 'update']);
 
-Route::get('/frequencies',[FrequencyController::class, 'list']);
-Route::get('/frequencies/{id}', [FrequencyController::class, 'item']);
-Route::post('/frequencies/create',[FrequencyController::class, 'create']);
-Route::post('/frequencies/update',[FrequencyController::class, 'update']);
+Route::get('/frequencies',[FrequenciesController::class, 'list']);
+Route::get('/frequencies/{id}', [FrequenciesController::class, 'item']);
+Route::post('/frequencies/create',[FrequenciesController::class, 'create']);
+Route::post('/frequencies/update',[FrequenciesController::class, 'update']);
 
 Route::get('/users',[UsersController::class, 'list']);
 Route::get('/users/{id}', [UsersController::class, 'item']);
@@ -59,6 +59,11 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 
 
 Route::get('/Elements/{id}',[HabitController::class, 'elements']);
+Route::get('/Elements2',[HabitController::class, 'elements']);
+
+Route::get('/search/{letter}', [Habit_typesController::class, 'search']);
+
+
 
 
 

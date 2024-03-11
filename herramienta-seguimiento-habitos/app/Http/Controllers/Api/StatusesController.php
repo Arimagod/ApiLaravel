@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Status;
 
-class StatusController extends Controller
+class StatusesController extends Controller
 {
     public function list(){
         $status = Status::all();

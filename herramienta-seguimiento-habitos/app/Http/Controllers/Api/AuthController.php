@@ -10,25 +10,26 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $loginData = $request->validate([
-            'email' => 'required|email',
+            'email' => 'required',
             'password' => 'required'
         ]);
 
-        if (!auth()->attempt($loginData)) {
-            return response([
-                'response' => 'Invalid credentials',
-                'message' => 'error']);
+        if(!auth()->attempt($loginData))
+        {
+            return response()->json([
+                'response' => 'Contraseña o correo incorrecto',
+            ], 401);
         }
 
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
 
-        return response ([
+        return response()->json([
             'profile' => auth()->user(),
             'access_token' => $accessToken,
             'message' => 'success'
         ]);
-    
     }
 }
