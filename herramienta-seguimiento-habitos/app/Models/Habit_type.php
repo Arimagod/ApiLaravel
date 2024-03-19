@@ -12,5 +12,10 @@ class Habit_type extends Model
     protected $fillable = [
         "id",
         "type",
+        "user_id",
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

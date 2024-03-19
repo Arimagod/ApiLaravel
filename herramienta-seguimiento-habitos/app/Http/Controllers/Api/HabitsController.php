@@ -80,6 +80,7 @@ class HabitsController extends Controller
         
 
     }
+    
     public function update(Request $request){
         $data = $request->validate([
 
@@ -201,6 +202,31 @@ class HabitsController extends Controller
         return response()->json($habitData
         );
 
+    }
+    public function TypeUser($userId){
+        $HabitsSaves = Habit::where('user_id', '=', $userId)->get();
+        $HabitData = [];
+
+        foreach ($HabitsSaves as $habit) {
+            $habitId = $habit->habit_type_id;
+            $Habits = Habit_type::where('id', '=', $habitId)->get();
+
+            foreach ($Habits as $habit) {
+                $HabitData[] = [
+                    "id" => $habit->id,
+                    "type" => $habit->type,
+                    "created_at" => $habit->created_at,
+                    "updated_at" => $habit->updated_at,
+                ];
+            }
+        }
+
+        if(!$HabitData){
+            return response()->json([
+                'message' => "Error al obtener los elementos"
+            ]);
+        }
+        return response()->json($HabitData);
     }
     
 

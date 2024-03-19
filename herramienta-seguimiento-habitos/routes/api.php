@@ -65,6 +65,9 @@ Route::get('/search/{letter}', [Habit_typesController::class, 'search']);
 
 Route::get('/habit/user/{id}',[HabitsController::class, 'habitUser']);
 
+Route::get('/habit/habitType/{id}',[HabitsController::class, 'TypeUser']);
+
+
 
 
 

@@ -16,6 +16,7 @@ class Habit_typesController extends Controller
             $object = [
                 "id" => $habit_type->id,
                 "type" => $habit_type->type,
+                "user" => $habit_type->user,
                 "created_at" => $habit_type->Created_at,
                 "updated_at" => $habit_type->Updated_at,
             ];
@@ -30,6 +31,7 @@ class Habit_typesController extends Controller
                 $object = [
                     "id" => $habit_type->id,
                     "type" => $habit_type->type,
+                    "user" => $habit_type->user,
                     "created_at" => $habit_type->Created_at,
                     "updated_at" => $habit_type->Updated_at,
                 ];
@@ -39,11 +41,15 @@ class Habit_typesController extends Controller
 
     public function create (Request $request){
         $data = $request->validate([
-            "type" => "required",            
+            "type" => "required",
+            "user_id" => "required"
+                     
         ]);
 
         $habit_type = Habit_type::create([
             "type" => $data["type"],
+            "user_id" => $data["user_id"]
+
         ]);
 
         if($habit_type){
@@ -61,7 +67,8 @@ class Habit_typesController extends Controller
     public function update(Request $request){
         $data = $request->validate([
             "id" => "required|numeric", 
-            "type" => "required",            
+            "type" => "required", 
+            "user_id" => "required|numeric"           
         ]);
         $habit_type = Habit_type::where('id', '=', $data["id"])->first();
 
@@ -72,6 +79,7 @@ class Habit_typesController extends Controller
 
 
             $habit_type->type = $data["type"];
+            $habit_type->user_id = $data["user_id"];
 
             if($habit_type->save()){
                 return response()->json([
@@ -107,6 +115,7 @@ class Habit_typesController extends Controller
             $typeData = [
                 "id" => $type->id,
                 "type" => $type->type,
+                "user_id" => $type->user_id,
                 "created_at" => $type->created_at,
                 "updated_at" => $type->updated_at
             ];
