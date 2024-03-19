@@ -127,6 +127,52 @@ class Habit_typesController extends Controller
         // Devolver la respuesta JSON con los tipos de hábitos
         return response()->json($typesArray);
     }
+    public function habitTypeUser($userId){
+        $habitTypes = Habit_type::where('user_id', '=', $userId)->get();
+        $habittypeData = [];
+    
+        foreach ($habitTypes as $habitType) {
+            $habittypeData[] = [
+                "id" => $habitType->id,
+                "type" => $habitType->type,
+                "user" => $habitType->user,
+                "created_at" => $habitType->created_at,
+                "updated_at" => $habitType->updated_at,
+            ];
+        }
+    
+        if(!$habittypeData){
+            return response()->json([
+                'message' => "Error al obtener los elementos"
+            ]);
+        }
+        return response()->json($habittypeData);
+    }
+    public function TypeUser($userId){
+        $HabitsSaves = Habit::where('user_id', '=', $userId)->get();
+        $HabitData = [];
+
+        foreach ($HabitsSaves as $habit) {
+            $habitId = $habit->habit_type_id;
+            $Habits = Habit_type::where('id', '=', $habitId)->get();
+
+            foreach ($Habits as $habit) {
+                $HabitData[] = [
+                    "id" => $habit->id,
+                    "type" => $habit->type,
+                    "created_at" => $habit->created_at,
+                    "updated_at" => $habit->updated_at,
+                ];
+            }
+        }
+
+        if(!$HabitData){
+            return response()->json([
+                'message' => "Error al obtener los elementos"
+            ]);
+        }
+        return response()->json($HabitData);
+    }
     
 
 }
