@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/habit_typs',[Habit_typesController::class, 'list']);
+Route::get('/habit_types',[Habit_typesController::class, 'list']);
 Route::get('/habit_types/{id}', [Habit_typesController::class, 'item']);
 Route::post('/habit_types/update',[Habit_typesController::class, 'update']);
 Route::post('/habit_types/create',[Habit_typesController::class, 'create']);
@@ -62,6 +62,9 @@ Route::get('/Elements/{id}',[HabitController::class, 'elements']);
 Route::get('/Elements2',[HabitController::class, 'elements']);
 
 Route::get('/search/{letter}', [Habit_typesController::class, 'search']);
+
+Route::get('/habit/user/{id}',[HabitsController::class, 'habitUser']);
+
 
 
 

@@ -176,6 +176,32 @@ class HabitsController extends Controller
     
         return response()->json($habitsArray);
     }
+    public function habitUser($userId){
+        $habits = Habit::where('user_id', '=', $userId)->get();
+        $habitData = [];
+
+        foreach ($habits as $habit) {
+            $habitData[] = [
+                "id" => $habit->id,
+                "description" => $habit->description,
+                "frequency" => $habit->frequency,
+                "status" => $habit->status,
+                "user" => $habit->user,
+                "habit_type" => $habit->habit_type,
+                "created_at" => $habit->Created_at,
+                "updated_at" => $habit->Updated_at,
+            ];
+        }
+
+        if(!$habitData){
+            return response()->json([
+                'message' => "Error al obtener los elementos"
+            ]);
+        }
+        return response()->json($habitData
+        );
+
+    }
     
 
     
