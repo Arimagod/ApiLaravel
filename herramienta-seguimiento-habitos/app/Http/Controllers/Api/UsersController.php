@@ -44,40 +44,44 @@ class UsersController extends Controller
             return response()->json($object);
     }
 
-    public function update(Request $request){
-        $data = $request -> validate([
-            'id' => 'required|numeric',
+    public function update(Request $request)
+    {
+        $data = $request->validate([
+            'id' => 'required|integer',
             'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-
+            'email'=> 'required',
         ]);
-   
         $user = User::where('id', '=', $data['id'])->first();
 
-        if($user) {
+        if($user)
+        {
             $old = clone $user;
 
-            $user -> name = $data['name'];
-            $user -> email = $data['email'];
-            $user -> password = $data['password'];
-
+            $user->name =$data['name'];
+            $user->email =$data['email'];
 
             if($user->save()){
-                return response() ->json([
-                    'message' => 'Usuario creada correctamente',
-                    'old' => $old,
-                    'new' => $user
-                ]);
-            }else{
-                return response() ->json([
-                    'message' => 'Error al crear una usuario',
-                ]);
+                $object =
+                [
+                    "response" => 'success, Item update correctly',
+                    "old" => $old,
+                    "new" => $user,
+                ];
+                return response()->json($object);
+            } else{
+                $object =
+                [
+                    "response" =>'Error: stupid',
+                ];
+                return response()->json($object);
             }
-        }else{
-            return response() ->json([
-                'message' => 'Elemento no encontrado',
-            ]);
+        }else
+        {
+            $object =
+            [
+                "response" =>'Error: stupid',
+            ];
+            return response()->json($object);
         }
     }
 
